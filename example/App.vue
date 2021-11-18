@@ -16,7 +16,8 @@
     <el-dialog
       title="表单"
       :visible.sync="open">
-      <zen-form-api v-if="open" :url="url" @cancel="close" @success="success" />
+      <zen-form-api v-if="open" :url="url" @cancel="close" @success="success">
+      </zen-form-api>
     </el-dialog>
   </div>
 </template>
@@ -32,8 +33,13 @@
 </style>
 
 <script>
+import ZenFormApi from './ZenFormApi.vue';
+
 export default {
   name: 'App',
+  components: {
+    ZenFormApi,
+  },
   data() {
     return {
       url: 'http://localhost:7001/form',

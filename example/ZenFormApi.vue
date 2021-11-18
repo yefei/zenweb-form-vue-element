@@ -5,8 +5,10 @@
       :layout="layout"
       :fields="fields"
       :errors="errors"
+      size="small"
       @submit="submit"
-      @cancel="cancel" />
+      @cancel="cancel">
+    </zen-form-render>
     <div v-else class="loading">正在载入表单</div>
   </div>
 </template>
@@ -19,14 +21,9 @@
 </style>
 
 <script>
-import ZenFormRender from './ZenFormRender.vue'
-
 export default {
   name: 'zen-form-api',
   props: ['url'],
-  components: {
-    ZenFormRender
-  },
   data() {
     return {
       loading: true,

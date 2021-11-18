@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="form" :model="form" :rules="rules" size="small">
+  <el-form ref="form" :model="form" :rules="rules" :size="size">
       <el-form-item
         v-for="item of layout"
         :key="item"
@@ -32,23 +32,27 @@
           <el-checkbox v-for="c in fields[item].choices" :key="c.value" :label="c.label" :value="c.value" />
         </el-checkbox-group>
 
-        <el-date-picker v-else-if="fields[item].type == 'date'" v-model="form[item]" type="date" />
-
         <el-input
-          v-else
+          v-else-if="fields[item].widget == 'Input'"
           v-model="form[item]"
           :maxlength="fields[item].validate && fields[item].validate.maxLength"
           :minlength="fields[item].validate && fields[item].validate.minLength"
           :show-word-limit="fields[item].validate && fields[item].validate.maxLength > 0"
           :placeholder="fields[item].placeholder" />
 
+        <slot v-else name="else" v-bind:field="fields[item]" v-bind:model="form[item]">
+          未知控件类型: {{fields[item].widget}}
+        </slot>
+
         <div v-if="errors && errors[item]" class="form-error">{{errors[item]}}</div>
         <div v-if="fields[item].help" class="form-help">{{fields[item].help}}</div>
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">提交</el-button>
-        <el-button @click="onCancel">取消</el-button>
-      </el-form-item>
+      <slot name="footer">
+        <el-form-item>
+          <el-button type="primary" @click="submit">提交</el-button>
+          <el-button @click="cancel">取消</el-button>
+        </el-form-item>
+      </slot>
   </el-form>
 </template>
 
@@ -66,7 +70,7 @@
 <script>
 export default {
   name: 'zen-form-render',
-  props: ['layout', 'fields', 'errors'],
+  props: ['layout', 'fields', 'errors', 'size'],
   data() {
     return {
       rules: null,
@@ -97,7 +101,7 @@ export default {
     this.rules = rules;
   },
   methods: {
-    onSubmit() {
+    submit() {
       this.$refs.form.validate(valid => {
         if (valid) {
           this.$emit('submit', this.form);
@@ -106,7 +110,7 @@ export default {
         }
       });
     },
-    onCancel() {
+    cancel() {
       this.$emit('cancel');
     }
   }
