@@ -1,51 +1,13 @@
 <template>
-  <el-form ref="form" :model="form" :rules="rules" :size="size">
+  <el-form ref="form" :model="form" :rules="rules" :size="size" :label-position="labelPosition">
       <el-form-item
         v-for="item of layout"
         :key="item"
         :label="fields[item].label || item"
         :prop="item">
-
-        <el-select v-if="fields[item].widget == 'Select'" v-model="form[item]">
-          <el-option
-            v-for="c in fields[item].choices"
-            :key="c.value"
-            :label="c.label"
-            :value="c.value" />
-        </el-select>
-
-        <template v-else-if="fields[item].widget == 'Radio'">
-          <el-radio v-for="c in fields[item].choices" :key="c.value" v-model="form[item]" :label="c.value">
-            {{c.label}}
-          </el-radio>
-        </template>
-
-        <el-select v-else-if="fields[item].widget == 'Multiple'" multiple v-model="form[item]">
-          <el-option
-            v-for="c in fields[item].choices"
-            :key="c.value"
-            :label="c.label"
-            :value="c.value" />
-        </el-select>
-
-        <el-checkbox-group v-else-if="fields[item].widget == 'Checkbox'" v-model="form[item]">
-          <el-checkbox v-for="c in fields[item].choices" :key="c.value" :label="c.label" :value="c.value" />
-        </el-checkbox-group>
-
-        <el-input
-          v-else-if="fields[item].widget == 'Input'"
-          v-model="form[item]"
-          :maxlength="fields[item].validate && fields[item].validate.maxLength"
-          :minlength="fields[item].validate && fields[item].validate.minLength"
-          :show-word-limit="fields[item].validate && fields[item].validate.maxLength > 0"
-          :placeholder="fields[item].placeholder" />
-
-        <slot v-else name="else" v-bind:field="fields[item]" v-bind:model="form[item]">
-          未知控件类型: {{fields[item].widget}}
-        </slot>
-
-        <div v-if="errors && errors[item]" class="form-error">{{errors[item]}}</div>
-        <div v-if="fields[item].help" class="form-help">{{fields[item].help}}</div>
+        <zen-field-render :field="fields[item]" v-model="form[item]" />
+        <div v-if="errors && errors[item]" style="color:#F56C6C">{{errors[item]}}</div>
+        <div v-if="fields[item].help" style="color:#909399">{{fields[item].help}}</div>
       </el-form-item>
       <slot name="footer">
         <el-form-item>
@@ -56,21 +18,10 @@
   </el-form>
 </template>
 
-<style>
-.form-help {
-  color: #909399;
-  font-size: 12px;
-}
-.form-error {
-  color: #F56C6C;
-  font-size: 12px;
-}
-</style>
-
 <script>
 export default {
   name: 'zen-form-render',
-  props: ['layout', 'fields', 'errors', 'size'],
+  props: ['layout', 'fields', 'errors', 'size', 'labelPosition'],
   data() {
     return {
       rules: null,
