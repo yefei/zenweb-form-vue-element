@@ -3,7 +3,7 @@ import App from './App.vue'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios';
-import ZenForm from '../packages/zen-form';
+import ZenForm from '../packages/zenform';
 
 Vue.use(ElementUI);
 Vue.use(ZenForm);
@@ -17,7 +17,7 @@ request.interceptors.response.use(
     return Promise.reject(response.data);
   }
 );
-Object.defineProperty(Vue.prototype, '$api', { value: request });
+Vue.prototype.$api = request;
 
 new Vue({
   render: h => h(App),
