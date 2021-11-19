@@ -15,6 +15,8 @@
 
     <el-dialog
       title="表单"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
       :visible.sync="open">
       <zen-form-api v-if="open" :url="url" @cancel="close" @success="success">
       </zen-form-api>
