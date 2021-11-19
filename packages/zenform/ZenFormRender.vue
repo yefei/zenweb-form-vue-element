@@ -1,20 +1,18 @@
 <template>
   <el-form ref="form" :model="form" :rules="rules" :size="size" :label-position="labelPosition">
-      <el-form-item
-        v-for="item of layout"
-        :key="item"
-        :label="fields[item].label || item"
-        :prop="item">
-        <zen-field-render :field="fields[item]" v-model="form[item]" />
-        <div v-if="errors && errors[item]" style="color:#F56C6C">{{errors[item]}}</div>
-        <div v-if="fields[item].help" style="color:#909399">{{fields[item].help}}</div>
-      </el-form-item>
-      <slot name="footer">
-        <el-form-item>
-          <el-button type="primary" @click="submit">提交</el-button>
-          <el-button @click="cancel">取消</el-button>
-        </el-form-item>
-      </slot>
+    <el-form-item
+      v-for="item of layout"
+      :key="item"
+      :label="fields[item].label || item"
+      :prop="item">
+      <zen-field-render :field="fields[item]" v-model="form[item]" />
+      <div v-if="errors && errors[item]" style="color:#F56C6C">{{errors[item]}}</div>
+      <div v-if="fields[item].help" style="color:#909399">{{fields[item].help}}</div>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="submit">提交</el-button>
+      <el-button @click="cancel">取消</el-button>
+    </el-form-item>
   </el-form>
 </template>
 
