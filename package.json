@@ -1,12 +1,13 @@
 {
   "name": "@zenweb/form-vue-element",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "private": false,
   "license": "MIT",
   "main": "lib/zenform.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "yarn lint && vue-cli-service build --target lib --formats umd-min --name zenform --dest lib packages/zenform/index.js",
+    "pub": "yarn build && yarn publish",
     "build:example": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
