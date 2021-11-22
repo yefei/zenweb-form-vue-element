@@ -6,7 +6,21 @@ import axios from 'axios';
 import ZenForm from '../packages/zenform';
 
 Vue.use(ElementUI);
-Vue.use(ZenForm);
+Vue.use(ZenForm, {
+  fields: {},
+  upload: {
+    headers() {
+      return {
+        time: Date.now()
+      }
+    },
+    data() {
+      return {
+        _: Date.now()
+      }
+    }
+  }
+});
 
 const request = axios.create();
 request.interceptors.response.use(

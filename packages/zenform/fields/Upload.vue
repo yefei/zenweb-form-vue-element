@@ -6,6 +6,8 @@
     :on-exceed="handleExceed"
     :on-success="success"
     :on-remove="remove"
+    :headers="$zenfrom.upload && $zenfrom.upload.headers && $zenfrom.upload.headers()"
+    :data="$zenfrom.upload && $zenfrom.upload.data && $zenfrom.upload.data()"
     :file-list="fileList">
     <el-button size="small" type="primary">点击上传</el-button>
   </el-upload>
