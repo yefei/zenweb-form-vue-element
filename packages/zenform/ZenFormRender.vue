@@ -1,5 +1,7 @@
 <template>
-  <el-form ref="form" :model="form" :rules="rules" :size="size" :label-position="labelPosition">
+  <el-form ref="form" :model="form" :rules="rules" :size="size"
+    :label-position="labelPosition"
+    label-width="auto">
     <el-form-item
       v-for="item of layout"
       :key="item"
