@@ -12,7 +12,7 @@
       <div v-if="fields[item].help" style="color:#909399">{{fields[item].help}}</div>
     </el-form-item>
     <el-form-item>
-      <slot name="footer-perpend" />
+      <slot name="footer-prepend" />
       <el-button type="primary" @click="submit">提交</el-button>
       <el-button @click="cancel">取消</el-button>
       <slot name="footer-append" />

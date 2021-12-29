@@ -3,7 +3,7 @@
 只需要一行代码即可完成表单渲染，所有表单项都由服务端返回，减轻前端重复工作。
 
 插槽:
-- footer-perpend
+- footer-prepend
 - footer-append
 
 
