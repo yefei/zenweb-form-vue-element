@@ -33,6 +33,7 @@ const fieldRender = {
 function install(Vue, opts = {}) {
   Vue.prototype.$zenfrom = opts;
   Object.assign(fields, opts.fields);
+  console.log('zen-fields:', Object.keys(fields));
   Vue.component('zen-field-render', fieldRender);
   Vue.component('zen-form-render', ZenFormRender);
 }
