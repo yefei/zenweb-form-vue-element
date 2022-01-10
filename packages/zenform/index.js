@@ -9,21 +9,15 @@ files.keys().forEach(key => {
 });
 
 const fieldRender = {
-  render(h) {
-    const self = this;
-    let Field = fields[this.$attrs.field.name || 'Input'];
+  functional: true,
+  render(h, ctx) {
+    let Field = fields[ctx.props.field.name || 'Input'];
     if (!Field) {
       Field = fields.Input;
-      console.warn('未注册表单组件:', this.$attrs.field.name);
+      console.warn('未注册表单组件:', ctx.props.field.name);
     }
-    return h(Field, {
-      props: this.$attrs,
-      on: {
-        input(value) {
-          self.$emit('input', value);
-        }
-      }
-    });
+    let field = <Field {...ctx.data} />;
+    return field;
   }
 };
 
