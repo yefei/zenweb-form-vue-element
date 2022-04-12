@@ -5,6 +5,17 @@ import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios';
 import ZenForm from '../packages/zenform';
 
+const request = axios.create();
+request.interceptors.response.use(
+  response => {
+    if (response.data.code === 200) {
+      return response.data.data;
+    }
+    return Promise.reject(response.data);
+  }
+);
+Vue.prototype.$api = request;
+
 Vue.use(ElementUI);
 Vue.use(ZenForm, {
   fields: {},
@@ -19,19 +30,13 @@ Vue.use(ZenForm, {
         _: Date.now()
       }
     }
+  },
+  async request(method, url, body) {
+    return request({
+      method, url, body
+    });
   }
 });
-
-const request = axios.create();
-request.interceptors.response.use(
-  response => {
-    if (response.data.code === 200) {
-      return response.data.data;
-    }
-    return Promise.reject(response.data);
-  }
-);
-Vue.prototype.$api = request;
 
 new Vue({
   render: h => h(App),
