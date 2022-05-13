@@ -2,7 +2,9 @@
   <el-time-select
     :value="value"
     @input="input"
-    :placeholder="field.placeholder" />
+    :placeholder="field.placeholder"
+    :disabled="field.readonly"
+  />
 </template>
 
 <script>
