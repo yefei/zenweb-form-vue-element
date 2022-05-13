@@ -5,7 +5,9 @@
       :value="value"
       @input="input"
       :key="c.value"
-      :label="c.value">
+      :label="c.value"
+      :disabled="field.readonly"
+    >
       {{c.label}}
     </el-radio>
   </div>
