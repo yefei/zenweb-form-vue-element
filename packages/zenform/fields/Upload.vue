@@ -6,8 +6,7 @@
     :on-exceed="handleExceed"
     :on-success="success"
     :on-remove="remove"
-    :before-upload="isReadonly"
-    :before-remove="isReadonly"
+    :disabled="field.readonly"
     :headers="$zenfrom.upload && $zenfrom.upload.headers && $zenfrom.upload.headers()"
     :data="$zenfrom.upload && $zenfrom.upload.data && $zenfrom.upload.data()"
     :file-list="fileList">
@@ -31,10 +30,6 @@ export default {
   methods: {
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 ${this.field.limit} 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-    },
-    isReadonly() {
-      if (this.field.readonly) return false;
-      return true;
     },
     success(response) {
       this.$emit('input', response.data.url);
